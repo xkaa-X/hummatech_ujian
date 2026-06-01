@@ -1,312 +1,168 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-bold text-2xl text-white">
-            Dashboard Tabungan & Belanja
+            Dashboard
         </h2>
+        <p class="mt-1 text-sm text-gray-400">
+            Ringkasan keseluruhan tabungan dan target impian Anda.
+        </p>
     </x-slot>
 
-    <div class="py-8 bg-gray-50 dark:bg-gray-900 min-h-screen">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-
-            <!-- Hero Section -->
-            <div class="bg-gradient-to-r from-slate-950 via-slate-900 to-indigo-950 rounded-3xl p-8 text-white shadow-2xl mb-8 border border-white/10">
-
-                <div class="flex flex-col md:flex-row justify-between items-center">
-                    
+    <div class="py-8 min-h-screen">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-8">
+            
+            <!-- Welcome / Summary Section -->
+            <div class="bg-gradient-to-r from-gray-800 to-gray-900 rounded-3xl p-8 text-white shadow-sm border border-gray-700 relative overflow-hidden">
+                <div class="relative z-10 flex flex-col md:flex-row justify-between items-center gap-6">
                     <div>
-                        <h1 class="text-3xl md:text-4xl font-bold text-white">
-                            Selamat Datang 👋
+                        <h1 class="text-3xl font-bold text-white mb-2">
+                            Halo, Selamat Datang! 👋
                         </h1>
-
-                        <p class="mt-3 text-white text-lg">
-                            Kelola tabungan dan rencana belanja Anda dengan tampilan eksklusif.
+                        <p class="text-gray-400 text-sm max-w-xl">
+                            Berikut adalah ringkasan dari semua tabungan yang sedang Anda kumpulkan. Semangat terus untuk mewujudkan barang impian Anda!
                         </p>
                     </div>
+                </div>
+                
+                <!-- Decorative background elements -->
+                <div class="absolute -top-24 -right-24 w-64 h-64 bg-indigo-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
+                <div class="absolute -bottom-24 -right-12 w-64 h-64 bg-emerald-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
+            </div>
 
-                    <div class="mt-6 md:mt-0 flex gap-3">
+            <!-- Stats Grid -->
+            <div class="grid gap-6 sm:grid-cols-2">
+                <!-- Total Target Keseluruhan -->
+                <div class="relative overflow-hidden rounded-2xl border border-gray-700 bg-gray-800 p-6 shadow-sm">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-xs font-bold uppercase tracking-wider text-gray-400">Total Target Keseluruhan</p>
+                            <h3 class="mt-2 text-2xl font-extrabold text-white tracking-tight">
+                                Rp{{ number_format($totalTarget, 0, ',', '.') }}
+                            </h3>
+                        </div>
+                        <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-indigo-500/10 text-indigo-400 ring-1 ring-indigo-500/20">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-6 w-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0 1 15.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5h16.5M5.25 18.75V9M18.75 18.75V9m-13.5 9h13.5m-10.5-5.25h6.75M12 9V4.5m-3 0h6" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
 
-                        <button
-                            class="bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-5 py-3 rounded-xl font-bold shadow-lg hover:from-cyan-400 hover:to-blue-400 transition shadow-cyan-500/20">
-                            + Setor Tabungan
-                        </button>
-
-                        <button
-                            class="bg-white/5 backdrop-blur-md border border-white/10 text-white px-5 py-3 rounded-xl font-semibold hover:bg-white/10 transition">
-                            Lihat Target
-                        </button>
-
+                <!-- Keseluruhan Tabungan User -->
+                <div class="relative overflow-hidden rounded-2xl border border-gray-700 bg-gray-800 p-6 shadow-sm">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-xs font-bold uppercase tracking-wider text-gray-400">Keseluruhan Tabungan</p>
+                            <h3 class="mt-2 text-2xl font-extrabold text-emerald-400 tracking-tight">
+                                Rp{{ number_format($totalTerkumpul, 0, ',', '.') }}
+                            </h3>
+                        </div>
+                        <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-400 ring-1 ring-emerald-500/20">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-6 w-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                            </svg>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Statistik -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-
-                <!-- Saldo -->
-                <div class="bg-gradient-to-br from-black to-amber-700 text-white rounded-3xl shadow-xl p-6 hover:scale-105 transition border border-amber-500/20">
-
-                    <div class="flex justify-between items-center">
-                        <div>
-                            <p class="text-white font-medium">
-                                Saldo Tabungan
-                            </p>
-
-                            <h3 class="text-3xl font-bold mt-2">
-                                Rp 5.000.000
-                            </h3>
-                        </div>
-
-                        <div class="w-16 h-16 flex items-center justify-center rounded-full bg-white/20 text-4xl">
-                            💰
-                        </div>
+            <!-- Impian Tercapai -->
+            <div class="mt-8">
+                <h3 class="text-xl font-bold text-white mb-4 border-b border-gray-700 pb-2">🎉 Impian Sudah Tercapai ({{ $tercapai->count() }})</h3>
+                
+                @if ($tercapai->isEmpty())
+                    <div class="bg-gray-800 border border-gray-700 rounded-2xl p-8 text-center">
+                        <p class="text-gray-400">Belum ada impian yang tercapai. Ayo semangat menabung!</p>
                     </div>
-
-                </div>
-
-                <!-- Target -->
-                <div class="bg-gradient-to-br from-black to-amber-600 text-white rounded-3xl shadow-xl p-6 hover:scale-105 transition border border-amber-500/20">
-
-                    <div class="flex justify-between items-center">
-                        <div>
-                            <p class="text-white font-medium">
-                                Target Aktif
-                            </p>
-
-                            <h3 class="text-3xl font-bold mt-2">
-                                3
-                            </h3>
-                        </div>
-
-                        <div class="w-16 h-16 flex items-center justify-center rounded-full bg-white/20 text-4xl">
-                            🎯
-                        </div>
+                @else
+                    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                        @foreach ($tercapai as $item)
+                            <article class="group relative flex flex-col overflow-hidden rounded-2xl border border-emerald-500/30 bg-gray-800 p-5 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:shadow-md hover:border-emerald-500">
+                                <div class="absolute inset-0 bg-emerald-500/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                                
+                                <div class="relative z-10 flex items-start justify-between gap-4">
+                                    <div class="flex flex-1 flex-col">
+                                        <div class="flex items-center gap-2 text-[11px] font-semibold tracking-wider text-gray-400 uppercase">
+                                            <span>{{ $item->jumlah_barang }} barang</span>
+                                        </div>
+                                        <h4 class="mt-1.5 text-lg font-bold text-white group-hover:text-emerald-400 transition-colors duration-200 line-clamp-2 leading-snug">{{ $item->nama_wishlist }}</h4>
+                                        <div class="mt-1.5 flex items-baseline">
+                                            <span class="text-xl font-extrabold text-white tracking-tight">Rp{{ number_format($item->harga, 0, ',', '.') }}</span>
+                                        </div>
+                                        <div class="mt-3 inline-flex self-start">
+                                            <span class="inline-flex items-center gap-1 rounded-lg bg-emerald-500/10 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-emerald-400 border border-emerald-500/20 shadow-sm">Goal Achieved</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="relative h-24 w-24 shrink-0 overflow-hidden rounded-xl border border-gray-700 bg-gray-900 shadow-sm">
+                                        @if ($item->gambar)
+                                            <img src="{{ Storage::url($item->gambar) }}" alt="{{ $item->nama_wishlist }}" class="h-full w-full object-cover transition duration-500 ease-out group-hover:scale-110">
+                                        @else
+                                            <div class="flex h-full w-full items-center justify-center text-gray-500">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8"><path stroke-linecap="round" stroke-linejoin="round" d="m20.25 7.5-.625 10.632a2.25 2.25 0 0 1-2.247 2.118H6.622a2.25 2.25 0 0 1-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z" /></svg>
+                                            </div>
+                                        @endif
+                                    </div>
+                                </div>
+                                <a href="{{ route('wishlist-detail.index', $item->id) }}" class="absolute inset-0 z-20" title="Kelola Tabungan"></a>
+                            </article>
+                        @endforeach
                     </div>
-
-                </div>
-
-                <!-- Pembelian -->
-                <div class="bg-gradient-to-br from-black to-amber-800 text-white rounded-3xl shadow-xl p-6 hover:scale-105 transition border border-amber-500/20">
-
-                    <div class="flex justify-between items-center">
-                        <div>
-                            <p class="text-white font-medium">
-                                Pembelian
-                            </p>
-
-                            <h3 class="text-3xl font-bold mt-2">
-                                12
-                            </h3>
-                        </div>
-
-                        <div class="w-16 h-16 flex items-center justify-center rounded-full bg-white/20 text-4xl">
-                            🛒
-                        </div>
-                    </div>
-
-                </div>
-
-                <!-- Pencapaian -->
-                <div class="bg-gradient-to-br from-black to-yellow-600 text-white rounded-3xl shadow-xl p-6 hover:scale-105 transition border border-amber-500/20">
-
-                    <div class="flex justify-between items-center">
-                        <div>
-                            <p class="text-white font-medium">
-                                Pencapaian
-                            </p>
-
-                            <h3 class="text-3xl font-bold mt-2">
-                                85%
-                            </h3>
-                        </div>
-
-                        <div class="w-16 h-16 flex items-center justify-center rounded-full bg-white/20 text-4xl">
-                            🚀
-                        </div>
-                    </div>
-
-                </div>
-
+                @endif
             </div>
 
-            <!-- SUMMARY KEUANGAN -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-
-                <!-- Total Uang -->
-                <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-lg">
-                    <div class="text-4xl">💰</div>
-                    <p class="text-white mt-4">Total Tabungan</p>
-                    <h3 class="text-3xl font-bold text-white mt-2">
-                        Rp 8.500.000
-                    </h3>
-                    <p class="text-white text-sm mt-2">
-                        Total seluruh uang yang terkumpul
-                    </p>
-                </div>
-
-                <!-- Wishlist Belum Terbeli -->
-                <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-lg">
-                    <div class="text-4xl">❤️</div>
-                    <p class="text-white mt-4">Wishlist Belum Tercapai</p>
-                    <h3 class="text-3xl font-bold text-white mt-2">
-                        4 Barang
-                    </h3>
-                    <p class="text-white text-sm mt-2">
-                        Target masih dalam proses tabungan
-                    </p>
-                </div>
-
-                <!-- Barang Terbeli -->
-                <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-lg">
-                    <div class="text-4xl">✅</div>
-                    <p class="text-white mt-4">Barang Sudah Dibeli</p>
-                    <h3 class="text-3xl font-bold text-emerald-400 mt-2">
-                        7 Barang
-                    </h3>
-                    <p class="text-white text-sm mt-2">
-                        Wishlist yang sudah berhasil dicapai
-                    </p>
-                </div>
-
-            </div>
-
-            <!-- WISHLIST SECTION -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-
-                <!-- BELUM TERBELI -->
-                <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6">
-
-                    <h2 class="text-2xl font-bold text-white mb-6">
-                        ❤️ Wishlist Belum Tercapai
-                    </h2>
-
-                    <!-- ITEM -->
-                    <div class="space-y-5">
-
-                        <div class="p-4 border border-slate-800 rounded-2xl">
-                            <div class="flex justify-between">
-                                <h3 class="text-white font-bold">iPhone 15</h3>
-                                <span class="text-blue-400 font-semibold">53%</span>
-                            </div>
-
-                            <div class="h-2 bg-slate-800 rounded-full mt-3">
-                                <div class="h-2 bg-blue-500 rounded-full w-[53%]"></div>
-                            </div>
-
-                            <div class="flex justify-between text-sm mt-3">
-                                <span class="text-white">Rp 8.000.000</span>
-                                <span class="text-red-400">Sisa Rp 7.000.000</span>
-                            </div>
-                        </div>
-
-                        <div class="p-4 border border-slate-800 rounded-2xl">
-                            <div class="flex justify-between">
-                                <h3 class="text-white font-bold">Laptop Gaming</h3>
-                                <span class="text-emerald-400 font-semibold">85%</span>
-                            </div>
-
-                            <div class="h-2 bg-slate-800 rounded-full mt-3">
-                                <div class="h-2 bg-emerald-500 rounded-full w-[85%]"></div>
-                            </div>
-
-                            <div class="flex justify-between text-sm mt-3">
-                                <span class="text-white">Rp 10.200.000</span>
-                                <span class="text-red-400">Sisa Rp 1.800.000</span>
-                            </div>
-                        </div>
-
+            <!-- Impian Belum Tercapai -->
+            <div class="mt-8">
+                <h3 class="text-xl font-bold text-white mb-4 border-b border-gray-700 pb-2">⏳ Impian Belum Tercapai ({{ $belumTercapai->count() }})</h3>
+                
+                @if ($belumTercapai->isEmpty())
+                    <div class="bg-gray-800 border border-gray-700 rounded-2xl p-8 text-center">
+                        <p class="text-gray-400">Semua impian Anda sudah tercapai!</p>
                     </div>
-                </div>
+                @else
+                    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                        @foreach ($belumTercapai as $item)
+                            @php
+                                $progress = $item->harga > 0 ? min(100, round(($item->terkumpul / $item->harga) * 100)) : 0;
+                            @endphp
+                            <article class="group relative flex flex-col overflow-hidden rounded-2xl border border-gray-700 bg-gray-800 p-5 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:shadow-md hover:border-gray-600">
+                                <div class="relative z-10 flex items-start justify-between gap-4">
+                                    <div class="flex flex-1 flex-col">
+                                        <div class="flex items-center gap-2 text-[11px] font-semibold tracking-wider text-gray-400 uppercase">
+                                            <span>{{ $item->jumlah_barang }} barang</span>
+                                        </div>
+                                        <h4 class="mt-1.5 text-lg font-bold text-white group-hover:text-indigo-400 transition-colors duration-200 line-clamp-2 leading-snug">{{ $item->nama_wishlist }}</h4>
+                                        <div class="mt-1.5 flex items-baseline">
+                                            <span class="text-xl font-extrabold text-white tracking-tight">Rp{{ number_format($item->harga, 0, ',', '.') }}</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="relative h-24 w-24 shrink-0 overflow-hidden rounded-xl border border-gray-700 bg-gray-900 shadow-sm">
+                                        @if ($item->gambar)
+                                            <img src="{{ Storage::url($item->gambar) }}" alt="{{ $item->nama_wishlist }}" class="h-full w-full object-cover transition duration-500 ease-out group-hover:scale-110">
+                                        @else
+                                            <div class="flex h-full w-full items-center justify-center text-gray-500">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8"><path stroke-linecap="round" stroke-linejoin="round" d="m20.25 7.5-.625 10.632a2.25 2.25 0 0 1-2.247 2.118H6.622a2.25 2.25 0 0 1-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z" /></svg>
+                                            </div>
+                                        @endif
+                                    </div>
+                                </div>
 
-                <!-- SUDAH TERBELI -->
-                <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6">
-
-                    <h2 class="text-2xl font-bold text-white mb-6">
-                        ✅ Barang Sudah Dibeli
-                    </h2>
-
-                    <div class="space-y-4">
-
-                        <div class="p-4 bg-emerald-500/10 border border-emerald-500/20 rounded-2xl">
-                            <div class="flex justify-between">
-                                <h3 class="text-white font-bold">Laptop ASUS</h3>
-                                <span class="text-emerald-400">✔</span>
-                            </div>
-                            <p class="text-white text-sm mt-2">
-                                Dibeli: 20 Mei 2026
-                            </p>
-                            <p class="text-emerald-400 font-bold mt-2">
-                                Rp 8.000.000
-                            </p>
-                        </div>
-
-                        <div class="p-4 bg-emerald-500/10 border border-emerald-500/20 rounded-2xl">
-                            <div class="flex justify-between">
-                                <h3 class="text-white font-bold">Smartwatch</h3>
-                                <span class="text-emerald-400">✔</span>
-                            </div>
-                            <p class="text-white text-sm mt-2">
-                                Dibeli: 10 Mei 2026
-                            </p>
-                            <p class="text-emerald-400 font-bold mt-2">
-                                Rp 2.500.000
-                            </p>
-                        </div>
-
+                                <div class="mt-4 pt-3 border-t border-gray-700">
+                                    <div class="flex justify-between items-end mb-1 text-xs">
+                                        <span class="font-medium text-gray-400">Terkumpul: Rp{{ number_format($item->terkumpul, 0, ',', '.') }}</span>
+                                        <span class="font-bold text-white">{{ $progress }}%</span>
+                                    </div>
+                                    <div class="h-1.5 w-full bg-gray-900 rounded-full overflow-hidden">
+                                        <div class="h-full rounded-full bg-gradient-to-r from-indigo-500 to-indigo-400" style="width: {{ $progress }}%"></div>
+                                    </div>
+                                </div>
+                                
+                                <a href="{{ route('wishlist-detail.index', $item->id) }}" class="absolute inset-0 z-20" title="Kelola Tabungan"></a>
+                            </article>
+                        @endforeach
                     </div>
-
-                </div>
-
-            </div>
-
-            <!-- TABEL TRANSAKSI -->
-            <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6">
-
-                <h2 class="text-2xl font-bold text-white mb-6">
-                    📋 Ringkasan Transaksi
-                </h2>
-
-                <div class="overflow-x-auto">
-
-                    <table class="w-full text-left">
-
-                        <thead>
-                            <tr class="border-b border-slate-800 text-white">
-                                <th class="py-3">Tanggal</th>
-                                <th>Jenis</th>
-                                <th>Keterangan</th>
-                                <th>Nominal</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-
-                            <tr class="border-b border-slate-800">
-                                <td class="py-4 text-white">30 Mei 2026</td>
-                                <td><span class="text-emerald-400">Setor</span></td>
-                                <td class="text-white">Tabungan Bulanan</td>
-                                <td class="text-emerald-400 font-bold">+ Rp 500.000</td>
-                            </tr>
-
-                            <tr class="border-b border-slate-800">
-                                <td class="py-4 text-white">28 Mei 2026</td>
-                                <td><span class="text-emerald-400">Bonus</span></td>
-                                <td class="text-white">Tambahan Tabungan</td>
-                                <td class="text-emerald-400 font-bold">+ Rp 250.000</td>
-                            </tr>
-
-                            <tr>
-                                <td class="py-4 text-white">25 Mei 2026</td>
-                                <td><span class="text-emerald-400">Pembelian</span></td>
-                                <td class="text-white">Headset Gaming</td>
-                                <td class="text-emerald-400 font-bold">- Rp 350.000</td>
-                            </tr>
-
-                        </tbody>
-
-                    </table>
-
-                </div>
-
+                @endif
             </div>
 
         </div>

@@ -41,74 +41,12 @@
             @endif
 
             <!-- Ringkasan Statistik -->
-            <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-                <!-- Card 1: Total Target -->
-                <div class="relative overflow-hidden rounded-2xl border border-gray-700 bg-gray-800 p-6 shadow-sm">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <p class="text-xs font-bold uppercase tracking-wider text-gray-400">Total Target Belanja</p>
-                            <h3 class="mt-2 text-2xl font-extrabold text-white tracking-tight">
-                                Rp{{ number_format($totalTarget, 0, ',', '.') }}
-                            </h3>
-                        </div>
-                        <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-indigo-500/10 text-indigo-400 ring-1 ring-indigo-500/20">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-6 w-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0 1 15.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5h16.5M5.25 18.75V9M18.75 18.75V9m-13.5 9h13.5m-10.5-5.25h6.75M12 9V4.5m-3 0h6" />
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="mt-4 flex items-center text-[11px] text-gray-400">
-                        <span class="font-medium">Akumulasi seluruh impian aktif</span>
-                    </div>
-                </div>
-
-                <!-- Card 2: Total Terkumpul -->
-                <div class="relative overflow-hidden rounded-2xl border border-gray-700 bg-gray-800 p-6 shadow-sm">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <p class="text-xs font-bold uppercase tracking-wider text-gray-400">Tabungan Terkumpul</p>
-                            <h3 class="mt-2 text-2xl font-extrabold text-emerald-400 tracking-tight">
-                                Rp{{ number_format($totalTerkumpul, 0, ',', '.') }}
-                            </h3>
-                        </div>
-                        <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-400 ring-1 ring-emerald-500/20">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-6 w-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="mt-4 flex items-center text-[11px] text-emerald-400">
-                        <span class="font-semibold">{{ $persentaseKeseluruhan }}%</span>
-                        <span class="ml-1 text-gray-400">dari total target impian</span>
-                    </div>
-                </div>
-
-                <!-- Card 3: Sisa Kekurangan -->
-                <div class="relative overflow-hidden rounded-2xl border border-gray-700 bg-gray-800 p-6 shadow-sm">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <p class="text-xs font-bold uppercase tracking-wider text-gray-400">Sisa Kekurangan</p>
-                            <h3 class="mt-2 text-2xl font-extrabold text-white tracking-tight">
-                                Rp{{ number_format($sisaKekurangan, 0, ',', '.') }}
-                            </h3>
-                        </div>
-                        <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-rose-500/10 text-rose-400 ring-1 ring-rose-500/20">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-6 w-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="mt-4 flex items-center text-[11px] text-gray-400">
-                        <span class="font-medium">Sisa dana yang harus dikumpulkan</span>
-                    </div>
-                </div>
-
-                <!-- Card 4: Progress Akumulatif -->
+            <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                 <div class="relative overflow-hidden rounded-2xl border border-gray-700 bg-gray-800 p-6 shadow-sm">
                     <div>
                         <div class="flex items-center justify-between">
                             <p class="text-xs font-bold uppercase tracking-wider text-gray-400">Progress Akumulatif</p>
-                            <span class="text-xs font-bold text-indigo-400 bg-indigo-500/10 px-2 py-0.5 rounded-md ring-1 ring-indigo-500/20">{{ $persentaseKeseluruhan }}%</span>
+                            <span class="text-xs font-bold text-white bg-indigo-500/10 px-2 py-0.5 rounded-md ring-1 ring-indigo-500/20">{{ $persentaseKeseluruhan }}%</span>
                         </div>
                         <!-- Sleek progress indicator -->
                         <div class="mt-4 h-2 w-full rounded-full bg-gray-900 overflow-hidden">
