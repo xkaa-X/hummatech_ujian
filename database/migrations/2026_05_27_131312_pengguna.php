@@ -11,13 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
-        Schema::create('pengguna', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('nama');
-            $table->string('email')->unique();
-            $table->string('password');
-        });
+        // Table pengguna sudah diganti dengan users table
+        // Skip ini
     }
 
     /**

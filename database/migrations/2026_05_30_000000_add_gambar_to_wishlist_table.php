@@ -11,13 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
-        Schema::create('wishlist_detail', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('wishlist_id');
-            $table->integer('pemasukan');
-            $table->string('kategori');
-            $table->date('tanggal');
+        Schema::table('wishlist', function (Blueprint $table) {
+            $table->string('gambar')->nullable()->after('harga');
         });
     }
 
@@ -26,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::table('wishlist', function (Blueprint $table) {
+            $table->dropColumn('gambar');
+        });
     }
 };
