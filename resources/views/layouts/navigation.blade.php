@@ -15,9 +15,12 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                                    <x-nav-link :href="route('wishlist.index')" :active="request()->routeIs('wishlist.*')">
-                                        {{ __('Wishlist') }}
-                                    </x-nav-link>
+                    <x-nav-link :href="route('wishlist.index')" :active="request()->routeIs('wishlist.*')">
+                        {{ __('Wishlist') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('transaksi.index')" :active="request()->routeIs('transaksi.*')">
+                        {{ __('Transaksi') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -73,9 +76,12 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
-                    <x-responsive-nav-link :href="route('wishlist.index')" :active="request()->routeIs('wishlist.*')">
-                        {{ __('Wishlist') }}
-                    </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('wishlist.index')" :active="request()->routeIs('wishlist.*')">
+                {{ __('Wishlist') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('transaksi.index')" :active="request()->routeIs('transaksi.*')">
+                {{ __('Transaksi') }}
+            </x-responsive-nav-link>
         </div>
 
         <!-- Responsive Settings Options -->

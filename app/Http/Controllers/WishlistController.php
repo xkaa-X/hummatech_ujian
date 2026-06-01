@@ -36,7 +36,13 @@ class WishlistController extends Controller
         ]);
 
         if ($request->hasFile('gambar')) {
-            $validated['gambar'] = $request->file('gambar')->store('wishlist', 'public');
+            $file = $request->file('gambar');
+            $compressedPath = $this->compressAndStoreImage($file);
+            if ($compressedPath) {
+                $validated['gambar'] = $compressedPath;
+            } else {
+                $validated['gambar'] = $file->store('wishlist', 'public');
+            }
         }
 
         Wishlist::create($validated);
@@ -64,7 +70,14 @@ class WishlistController extends Controller
             if ($wishlist->gambar) {
                 Storage::disk('public')->delete($wishlist->gambar);
             }
-            $validated['gambar'] = $request->file('gambar')->store('wishlist', 'public');
+            
+            $file = $request->file('gambar');
+            $compressedPath = $this->compressAndStoreImage($file);
+            if ($compressedPath) {
+                $validated['gambar'] = $compressedPath;
+            } else {
+                $validated['gambar'] = $file->store('wishlist', 'public');
+            }
         }
 
         $wishlist->update($validated);
@@ -82,5 +95,89 @@ class WishlistController extends Controller
 
         return redirect()->route('wishlist.index')
             ->with('success', 'Wishlist berhasil dihapus.');
+    }
+
+    private function compressAndStoreImage($file)
+    {
+        try {
+            if (!extension_loaded('gd')) {
+                return null;
+            }
+
+            $imageInfo = getimagesize($file->getRealPath());
+            if (!$imageInfo) {
+                return null;
+            }
+
+            list($width, $height, $type) = $imageInfo;
+            
+            // Limit max dimensions to 800px
+            $maxDim = 800;
+            if ($width > $maxDim || $height > $maxDim) {
+                $ratio = $width / $height;
+                if ($ratio > 1) {
+                    $newWidth = $maxDim;
+                    $newHeight = round($maxDim / $ratio);
+                } else {
+                    $newHeight = $maxDim;
+                    $newWidth = round($maxDim * $ratio);
+                }
+            } else {
+                $newWidth = $width;
+                $newHeight = $height;
+            }
+
+            // Create image based on type
+            switch ($type) {
+                case IMAGETYPE_JPEG:
+                    $src = imagecreatefromjpeg($file->getRealPath());
+                    break;
+                case IMAGETYPE_PNG:
+                    $src = imagecreatefrompng($file->getRealPath());
+                    break;
+                case IMAGETYPE_GIF:
+                    $src = imagecreatefromgif($file->getRealPath());
+                    break;
+                case IMAGETYPE_WEBP:
+                    $src = imagecreatefromwebp($file->getRealPath());
+                    break;
+                default:
+                    return null;
+            }
+
+            if (!$src) {
+                return null;
+            }
+
+            $dst = imagecreatetruecolor($newWidth, $newHeight);
+            
+            // Handle transparency
+            if ($type == IMAGETYPE_PNG || $type == IMAGETYPE_GIF || $type == IMAGETYPE_WEBP) {
+                imagealphablending($dst, false);
+                imagesavealpha($dst, true);
+                $transparent = imagecolorallocatealpha($dst, 255, 255, 255, 127);
+                imagefilledrectangle($dst, 0, 0, $newWidth, $newHeight, $transparent);
+            }
+
+            imagecopyresampled($dst, $src, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
+
+            // Generate unique filename on public/wishlist disk path
+            $filename = 'wishlist/' . uniqid() . '.jpg';
+            
+            // Output to buffer as JPEG with 75% quality
+            ob_start();
+            imagejpeg($dst, null, 75);
+            $imageData = ob_get_clean();
+
+            // Destroy GD resources
+            imagedestroy($src);
+            imagedestroy($dst);
+
+            // Save to public disk
+            Storage::disk('public')->put($filename, $imageData);
+            return $filename;
+        } catch (\Throwable $e) {
+            return null; // Fallback to original store
+        }
     }
 }

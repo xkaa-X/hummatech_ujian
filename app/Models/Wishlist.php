@@ -17,4 +17,9 @@ class Wishlist extends Model
     ];
 
     public $timestamps = false;
+
+    public function details()
+    {
+        return $this->hasMany(WishlistDetail::class);
+    }
 }
